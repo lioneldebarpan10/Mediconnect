@@ -1,67 +1,59 @@
-import React from 'react'
-import { FaUserDoctor } from 'react-icons/fa6'
-import { NavLink } from 'react-router-dom'
-
+import React, { useState } from 'react'
+import { assets } from '../assets/assets'
+import { NavLink, useNavigate } from 'react-router-dom'
 const Navbar = () => {
 
-   return (
+  const navigate = useNavigate();
 
-      <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-[#ADADAD]'>
+  const [showMenu , setShowMenu] = useState(false);
+  const [token , setToken] = useState(true); // when we have token we are logged in
 
-         {/*Adding Mediconnect Logo */}
-         <a href="#" style={{ display: 'flex', alignItems: 'center', fontSize: '1.2rem' }}>
-            <FaUserDoctor style={{ marginRight: '8px' }} /> MediConnect
-         </a>
+  return (
+    <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400 '>
+      <img src={assets.logo} alt="main-logo" className='w-44 cursor-pointer' />
+      <ul className='hiddden md:flex items-start gap-5 font-medium'>
+        <NavLink to='/'>
+          <li className='py-1'>HOME</li>
+          <hr className='border-none outline-none h-0.5 bg-[#5f6FFF] w-3/5 m-auto hidden' />
+        </NavLink>
+        <NavLink to='/doctors'>
+          <li className='py-1'>ALL DOCTORS</li>
+          <hr className='border-none outline-none h-0.5 bg-[#5f6FFF] w-3/5 m-auto hidden' />
+        </NavLink>
+        <NavLink to='/about'>
+          <li className='py-1'>ABOUT</li>
+          <hr className='border-none outline-none h-0.5 bg-[#5f6FFF] w-3/5 m-auto hidden' />
+        </NavLink>
+        <NavLink to='/contact'>
+          <li className='py-1'>CONTACT</li>
+          <hr className='border-none outline-none h-0.5 bg-[#5f6FFF] w-3/5 m-auto hidden' />
+        </NavLink>
+      </ul>
 
-         {/*Creating Navlinks */}
-         <ul className='md:flex items-start gap-5 font-medium hidden'>
+      <div className='flex items-center gap-4' >
+        {
+          token ? 
+          <div className='flex items-center gap-2 cursor-pointer group relative'>
+            <img src= {assets.profile_pic} alt="profile-pic" className='rounded-full w-8'/>
+            <img src= {assets.dropdown_icon} alt="dropdoen-icon"  className='w-2.5'/>
 
-            <NavLink to='/'>
-               <li className='py-1'>HOME</li>
-               <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-            </NavLink>
-
-            <NavLink to='/doctors'>
-               <li className='py-1'>ALL DOCTORS</li>
-               <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-            </NavLink >
-
-            <NavLink to='/about'>
-               <li className='py-1'>ABOUT</li>
-               <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-            </NavLink>
-
-            <NavLink to='/contact'>
-               <li className='py-1'>CONTACT</li>
-               <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-            </NavLink>
-
-         </ul>
-
-         {/*Create account Button for Mediconnect */}
-
-         <div className='flex items-center gap-4'>
-            <button className='bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block'>Create Account</button>
-            <img src="" alt="" className='w-6 md:hidden' />
-
-            {/*Mobile Menu */}
-
-            <div>
-               <div>
-                  <a href=""></a>
-                  <img src="" alt="" />
-               </div>
-
-               <ul className='flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium'>
-                  <NavLink to='/'><p className='px-4 py-2 rounded full inline-block'>HOME</p></NavLink>
-                  <NavLink to='/doctors'><p className='px-4 py-2 rounded full inline-block'>ALL DOCTORS</p></NavLink>
-                  <NavLink to='/about'><p className='px-4 py-2 rounded full inline-block'>ABOUT</p></NavLink>
-                  <NavLink to='contact'><p className='px-4 py-2 rounded full inline-block'>CONTACT</p></NavLink>
-               </ul>
+            <div className='absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block'>
+              <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4 className = "hover:text-black cursor-pointer"'>
+                <p className = "hover:text-black cursor-pointer" onClick={()=> navigate("/my-profile")}>My Profile</p>
+                <p className = "hover:text-black cursor-pointer" onClick={()=> navigate("/my-appointments")}>My Appointments</p>
+                <p className = "hover:text-black cursor-pointer" onClick={()=> setToken(false)}>Log out</p>
+              </div>
             </div>
-         </div>
+
+          </div>
+          :
+          <button className='bg-[#5f6FFF] text-white px-8 py-3 rounded-full font-medium hidden md:block cursor-pointer' onClick={() => navigate('/login')}>CREATE ACCOUNT</button>
+        }
+        
       </div>
-   )
+
+    </div>
+  )
 }
 
 export default Navbar
