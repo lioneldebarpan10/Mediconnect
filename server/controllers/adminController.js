@@ -2,7 +2,7 @@ import validator from "validator"; // validate email and password
 import bcrypt from "bcrypt"; // hashing
 import { v2 as cloudinary } from 'cloudinary'; // image upload
 import doctorModel from "../models/doctorModel.js" // for storng data in DB
-
+import jwt from "jsonwebtoken" // token generation
 
 // API for adding Doctor
 const addDoctor = async (req, res) => {
@@ -45,7 +45,7 @@ const addDoctor = async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, salt)
 
       // Step - 5 upload image to cloudinary
-      const imageUpload = await cloudinary.uploader.upload(imageFile.path , {resource_type: "image"})
+      const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" })
       const imageUrl = imageUpload.secure_url  // image url of cloudinary
 
       // Step - 6 save these doctor's data in Database
@@ -53,7 +53,7 @@ const addDoctor = async (req, res) => {
       const doctorData = {
          name,
          email,
-         image:imageUrl,
+         image: imageUrl,
          password: hashedPassword,
          speciality,
          degree,
@@ -69,11 +69,12 @@ const addDoctor = async (req, res) => {
       await newDoctor.save();
 
       res.json({
-         success:true,
+         success: true,
          message: "Doctor Added"
       })
 
    }
+   // STep - 8 if any steps failed then this
    catch (error) {
       console.log(error);
       res.json({
@@ -83,4 +84,42 @@ const addDoctor = async (req, res) => {
 
    }
 }
-export default addDoctor;
+
+//  Step - 9  - API for Admin login so that only admin can add doctors
+
+// before doing it add ADMIN SECRET in .env and jwt for token
+const loginAdmin = async (req, res) => {
+   
+   try {
+
+      // Step - 10 we receieve emailId & password from the request  body and matched with Admin Password & emailId from env
+      const { email, password } = req.body;
+      if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+
+         const token = jwt.sign(email+password, process.env.JWT_SECRET) 
+         res.json({
+            success: true,
+            token // using this token we are allow admin to login admin panel
+         })
+      }
+      //  
+      else{
+         res.json({
+            success: false,
+            message: "Invalid Credentials"
+         })
+      }
+   }
+   catch (error) {
+      res.json({
+         success: false,
+         messgae: error.message,
+      })
+   }
+}
+
+export { addDoctor, loginAdmin };
+
+// http://localhost:4000/api/admin/add-doctor -> body -> Doctor's data -> Failed , because you are not an admin
+// http://localhost:4000/api/admin/login -> email & password from env -> token generated -> token added in header as atoken(admin token) 
+// then http://localhost:4000/api/admin/add-doctor -> POST request will be accepted
