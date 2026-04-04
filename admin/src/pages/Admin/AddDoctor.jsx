@@ -43,9 +43,9 @@ const AddDoctor = () => {
 
 
       // console.log formData
-      formData.forEach((value, key) => {
+      /*formData.forEach((value, key) => {
         console.log(`${key}: ${value}`)
-      })
+      })*/
 
       const { data } = await axios.post(backendUrl + '/api/admin/add-doctor', formData, { headers: { aToken } })
 
@@ -62,8 +62,6 @@ const AddDoctor = () => {
         setFees('')
         setExperience('1 Year')
         setSpeciality('General Physician')
-
-
       }
       else {
         toast.error(data.message);
@@ -73,7 +71,6 @@ const AddDoctor = () => {
       console.log(error);
       toast.error(error.message);
     }
-
   }
 
   return (

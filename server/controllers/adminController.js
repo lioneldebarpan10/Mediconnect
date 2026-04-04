@@ -89,21 +89,21 @@ const addDoctor = async (req, res) => {
 
 // before doing it add ADMIN SECRET in .env and jwt for token
 const loginAdmin = async (req, res) => {
-   
+
    try {
 
       // Step - 10 we receieve emailId & password from the request  body and matched with Admin Password & emailId from env
       const { email, password } = req.body;
-      if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+      if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
 
-         const token = jwt.sign(email+password, process.env.JWT_SECRET) 
+         const token = jwt.sign(email + password, process.env.JWT_SECRET)
          res.json({
             success: true,
             token // using this token we are allow admin to login admin panel
          })
       }
       //  
-      else{
+      else {
          res.json({
             success: false,
             message: "Invalid Credentials"
@@ -118,8 +118,29 @@ const loginAdmin = async (req, res) => {
    }
 }
 
-export { addDoctor, loginAdmin };
 
 // http://localhost:4000/api/admin/add-doctor -> body -> Doctor's data -> Failed , because you are not an admin
 // http://localhost:4000/api/admin/login -> email & password from env -> token generated -> token added in header as atoken(admin token) 
 // then http://localhost:4000/api/admin/add-doctor -> POST request will be accepted
+
+// API to get all doctors list for admin panel
+
+const allDoctors = async (req, res) => {
+
+   try {
+      const doctors = await doctorModel.find({}).select('-password')
+      res.json({
+         success: true,
+         doctors
+      })
+   }
+   catch (error) {
+      console.log(error)
+      res.json({
+         success: false,
+         messsage: error.message
+      })
+   }
+}
+
+export { addDoctor, loginAdmin, allDoctors };

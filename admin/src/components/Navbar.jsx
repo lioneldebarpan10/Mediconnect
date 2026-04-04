@@ -19,7 +19,7 @@ const Navbar = () => {
             <img src={assets.admin_logo} alt="admin-logo" className='w-36 sm:w-40 cursor-pointer' />
             <p className='border px-3 py-1 rounded-full border-gray-500 text-gray-600'>{aToken ? 'Admin' : 'Doctor'}</p>
          </div>
-         <button className='' onClick={logout}>Log out</button>
+         <button className='bg-[#5f6FFF] text-white text-sm px-10 py-2 rounded-full hover:bg-blue-700 transition' onClick={logout}>Log out</button>
 
       </div>
    )
