@@ -2,7 +2,7 @@ import express from 'express'
 import { addDoctor , allDoctors, loginAdmin } from '../controllers/adminController.js'
 import upload from '../middlewares/multer.js'
 import authAdmin from '../middlewares/authAdmin.js'
-
+import { changeAvailability } from '../controllers/doctorController.js'
 const adminRouter = express.Router()
 // when this api hits we have to send the image in the form data
 // with the filled name image then only middleware process the image and form data
@@ -10,6 +10,9 @@ const adminRouter = express.Router()
 adminRouter.post('/add-doctor' ,authAdmin, upload.single("image") ,addDoctor)
 adminRouter.post('/login', loginAdmin)
 adminRouter.post('/all-doctors',authAdmin, allDoctors)
+adminRouter.post('/change-availability',authAdmin, changeAvailability)
+
+
 
 export default adminRouter;
 

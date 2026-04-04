@@ -1,15 +1,27 @@
+import doctorModel from "../models/doctorModel.js"
 
+// we need this in admin and doctor dashboard
+const changeAvailability = async (req, res) => {
+   try {
 
-// API for adding Doctors
-const addDoctor = async (req , res) => {
-
-   try{
-      
-
+      const { docId } = req.body
+      const docData = await doctorModel.findById(docId)
+      await doctorModel.findByIdAndUpdate(
+         docId,
+         { available: !docData.available }
+      )
+      res.json({
+         success: true,
+         message: "Availibility Changed"
+      })
    }
-   catch(error){
-
+   catch (error) {
+      console.log(error)
+      res.json({
+         success: false,
+         message: error.message
+      })
    }
-
-   
 }
+
+export { changeAvailability }
