@@ -18,7 +18,7 @@ const App = () => {
     <div className='bg-[#F8F9FD]'>
       <ToastContainer />
       <Navbar />
-      <div className='flec items-start'>
+      <div className='flex items-start'>
         <Sidebar/>
         <Routes>
           <Route path = '/' element = {<></>} />
@@ -26,10 +26,7 @@ const App = () => {
           <Route path = '/all-appointments' element = {<AllApointments />} />
           <Route path = '/add-doctor' element = {<AddDoctor />} />
           <Route path = '/doctor-list' element = {<DoctorsList />} />
-
-
-
-
+          
         </Routes>
       </div>
     </div>

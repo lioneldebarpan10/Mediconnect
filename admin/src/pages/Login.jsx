@@ -15,7 +15,7 @@ const Login = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log("Form submitted"); 
+    console.log("Form submitted");
 
     try {
       // Admin State - calling Admin login API
@@ -25,10 +25,10 @@ const Login = () => {
 
         if (data.success) {
           toast.success(data.message)
-          localStorage.setItem('aToken' , data.token);
-          setAToken(data.token); 
+          localStorage.setItem('aToken', data.token);
+          setAToken(data.token);
         }
-        else{
+        else {
           toast.error(data.message)
         }
       }
