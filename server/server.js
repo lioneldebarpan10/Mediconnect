@@ -4,6 +4,7 @@ import 'dotenv/config';
 import connectDB from './config/mongodb.js';
 import connectCloudinary from './config/cloudinary.js';
 import adminRouter from './routes/adminRoute.js';
+import doctorRouter from './routes/doctorRoute.js';
 
 // App Config
 const app = express();
@@ -18,7 +19,7 @@ app.use(cors()); // allow frontend to connect with backend
 // api endpoint
 
 app.use('/api/admin' , adminRouter); 
-
+app.use('/api/doctor' , doctorRouter);
 
 app.get('/' , (req , res)=> {
    res.send('Api is Working on PORT 4000');
