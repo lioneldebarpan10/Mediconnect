@@ -50,25 +50,28 @@ const AddDoctor = () => {
       const { data } = await axios.post(backendUrl + '/api/admin/add-doctor', formData, { headers: { aToken } })
 
       if (data.success) {
-        return toast.success(data.message);
+        toast.success(data.message);
         setDocImg(false)
         setName('')
         setEmail('')
         setPassword('')
         setAddress1('')
         setAddress2('')
-        setDegree('')
+        setEducation('')
         setAbout('')
         setFees('')
+        setExperience('1 Year')
+        setSpeciality('General Physician')
+
 
       }
       else {
-        return toast.error(data.message);
+        toast.error(data.message);
       }
     }
     catch (error) {
       console.log(error);
-      return toast.error(error.message);
+      toast.error(error.message);
     }
 
   }
