@@ -23,6 +23,12 @@ const registerUser = async (req, res) => {
          return res.json({ message: "Password must be strong", success: false })
       }
 
+      // is user already exists with these email
+      const existingUser = await userModel.findOne({ email })
+      if (existingUser) {
+         return res.json({ success: false, message: "User already exists" })
+      }
+
       //hashing user password
       const salt = await bcrypt.genSalt(10); //10 ideal rounds for hashing
       const hashedPassword = await bcrypt.hash(password, salt)
@@ -55,26 +61,27 @@ const loginUser = async (req, res) => {
       const { email, password } = req.body
       const user = await userModel.findOne({ email })
 
-      if(!user){
+      if (!user) {
          return res.json({
             message: "User doesn't exist",
             success: false
          })
       }
-      const isMatch = await bcrypt.compare(password , user.password)
-      if(isMatch){
-         const token = jwt.sign({id: user._id} , process.env.JWT_SECRET)
+      const isMatch = await bcrypt.compare(password, user.password)
+      if (isMatch) {
+         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
          res.json({
+            success: true,
             message: "Login Successful",
             token
          })
       }
-      else{
-         res.json({message: "Invalid Credentials" , success: false})
+      else {
+         res.json({ message: "Invalid Credentials", success: false })
       }
    }
    catch (error) {
-      res.json({message: error.message , success: false})
+      res.json({ message: error.message, success: false })
 
    }
 }
