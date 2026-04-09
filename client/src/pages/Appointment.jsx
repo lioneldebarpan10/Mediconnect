@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { assets } from '../assets/assets';
 import RelatedDoctors from '../components/RelatedDoctors';
+import { toast } from 'react-toastify'
+import axios from 'axios'
 
 const Appointment = () => {
-  const { doctors, currency } = useContext(AppContext)
+  const { doctors, currency, backendUrl, token, getDoctorsData } = useContext(AppContext)
   const { docId } = useParams();
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
@@ -14,6 +16,7 @@ const Appointment = () => {
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState('')
+  const navigate = useNavigate();
 
   const fetchDocInfo = async () => {
     const docInfo = doctors.find(doc => doc._id === docId)
@@ -69,9 +72,43 @@ const Appointment = () => {
         currentDate.setMinutes(currentDate.getMinutes() + 30);
       }
       setDocSlots(prev => ([...prev, timeSlots]))
+    }
+  }
 
+  // book appointment function
+  const bookAppointment = async () => {
+
+    if (!token) {
+      toast.warn('Login to book appointment')
+      return navigate('/login')
     }
 
+    try {
+      const date = docSlots[slotIndex][0].datetime
+      let day = date.getDate()
+      let month = date.getMonth() + 1
+      let year = date.getFullYear()
+
+      const slotDate = day + "_" + month + "_" + year
+      // console.log(slotDate)
+
+      const { data } = await axios.post(backendUrl + "/api/user/book-appointment",
+        { docId, slotDate, slotTime },
+        { headers: { token } })
+
+      if (data.success) {
+        toast.success(data.message)
+        getDoctorsData()
+        navigate('/my-appointments')
+      }
+      else {
+        toast.error(data.message)
+      }
+    }
+    catch (error) {
+      console.log(error)
+      toast.error(error.message)
+    }
   }
 
   useEffect(() => {
@@ -145,7 +182,7 @@ const Appointment = () => {
           }
         </div>
 
-        <button className='bg-[#5f6FFF] text-white text-sm font-light px-20 py-3 rounded-full my-6'>Book an Appointment</button>
+        <button onClick={bookAppointment} className='bg-[#5f6FFF] text-white text-sm font-light px-20 py-3 rounded-full my-6 cursor-pointer'>Book an Appointment</button>
       </div>
 
       <RelatedDoctors speciality={docInfo.speciality} docId={docId} />
