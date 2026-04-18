@@ -62,12 +62,19 @@ const Appointment = () => {
         let month = currentDate.getMonth() + 1
         let year = currentDate.getFullYear()
 
+        const slotDate = day + "_" + month + "_" + year
+        const slotTime = formattedTime
 
-        // add slot to array
-        timeSlots.push({
-          datetime: new Date(currentDate),
-          time: formattedTime,
-        })
+        const isSlotAvailable = docInfo.slots_booked[slotDate] && docInfo.slots_booked[slotDate].includes(slotTime) ? false : true
+
+        if (isSlotAvailable) {
+          // add slot to array
+          timeSlots.push({
+            datetime: new Date(currentDate),
+            time: formattedTime,
+          })
+        }
+        
         // incremtn current time by 30min
         currentDate.setMinutes(currentDate.getMinutes() + 30);
       }
