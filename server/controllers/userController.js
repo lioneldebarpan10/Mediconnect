@@ -199,18 +199,18 @@ const cancelAppointment = async (req, res) => {
 
 // API to list down all appointments
 const listAppointment = async (req, res) => {
-   try{
 
-      const userId = req.userId
-      const appointments = await appointmentModel.findById
+   try {
+      const userId = req.userId;
+      const appointments = await appointmentModel.find({ userId })
+      res.json({success: true , appointments})
 
-      res.json({success: true, appointments})
    }
-   catch(error){
+   catch (error) {
       console.log(error)
-      res.json({success: false , message: error.message})
-   }
+      res.json({ message: error.message })
 
+   }
 }
 
 

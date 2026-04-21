@@ -25,6 +25,7 @@ const Appointment = () => {
   }
 
   const getAvailableSlots = async () => {
+    if (!docInfo || !docInfo.slots_booked) return;
     setDocSlots([]) // clear previous slots
 
     // getting current date
@@ -65,7 +66,9 @@ const Appointment = () => {
         const slotDate = day + "_" + month + "_" + year
         const slotTime = formattedTime
 
-        const isSlotAvailable = docInfo.slots_booked[slotDate] && docInfo.slots_booked[slotDate].includes(slotTime) ? false : true
+        const isSlotAvailable = docInfo.slots_booked?.[slotDate]?.includes(slotTime)
+          ? false
+          : true;
 
         if (isSlotAvailable) {
           // add slot to array
@@ -74,7 +77,7 @@ const Appointment = () => {
             time: formattedTime,
           })
         }
-        
+
         // incremtn current time by 30min
         currentDate.setMinutes(currentDate.getMinutes() + 30);
       }
