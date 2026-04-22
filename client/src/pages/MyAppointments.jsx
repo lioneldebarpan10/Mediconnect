@@ -52,7 +52,50 @@ const MyAppointments = () => {
       console.log(error)
       toast.error(error.message)
     }
+  }
 
+  const initPay = (order) => {
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: "Appointment Payment",
+      description: "Appointment Payment",
+      order_id: order.id,
+      receipt: order.receipt,
+      handler: async (response) => {
+        console.log(response);
+
+        try{
+          const { data } = await axios.post(backendUrl + '/api/user/verifyRazorpay',response, {headers: {token}})
+          if(data.success){
+            getUserAppointments()
+            navigate('/my-appointments')
+          }
+        }
+        catch(error){
+          console.log(error)
+          toast.error(error.message)
+        }
+      }
+    }
+    const rzp = new window.Razorpay(options)
+    rzp.open()
+  }
+
+  const appointmentRazorpay = async(appointmentId) => {
+
+    try{
+      const { data } = await axios.post(backendUrl + '/api/user/payment-razorpay', {appointmentId} , {headers: {token}})
+      if(data.success){
+        // test-log console.log(data.order)
+        initPay(data.order)
+      }
+    }
+    catch(error){
+      console.log(error)
+      res.json({success: false , message: error.message})
+    }
   }
 
   useEffect(() => {
@@ -80,7 +123,7 @@ const MyAppointments = () => {
               <p className='text-xs mt-1'><span className='text-xs font-medium text-neutral-700'>Date & Time:</span> {slotDateFormat(item.slotDate)} | {item.slotTime}</p>
             </div>
             <div className='flex flex-col sm:flex-col gap-2 sm:items-end w-full sm:w-auto'>
-              {!item.cancelled && <button className='text-sm text-stone-500 text-center w-full sm:w-36 py-2 border rounded hover:text-white hover:bg-[#5f6FFF] transition-all duration-500 cursor-pointer'>Pay Online</button>}
+              {!item.cancelled && <button onClick={() => appointmentRazorpay(item._id)} className='text-sm text-stone-500 text-center w-full sm:w-36 py-2 border rounded hover:text-white hover:bg-[#5f6FFF] transition-all duration-500 cursor-pointer'>Pay Online</button>}
               {!item.cancelled && <button onClick={() => cancelAppointment(item._id)} className='text-sm text-stone-500 text-center w-full sm:w-36 py-2 border rounded hover:text-white hover:bg-red-500 transition-all duration-500 cursor-pointer'>Cancel Appointment</button>}
               {item.cancelled && <button className='sm:min-w-48 py-2 border border-red-500 rounded text-red-500'>Appointment Cancelled</button>}
             </div>
