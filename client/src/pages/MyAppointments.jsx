@@ -123,7 +123,8 @@ const MyAppointments = () => {
               <p className='text-xs mt-1'><span className='text-xs font-medium text-neutral-700'>Date & Time:</span> {slotDateFormat(item.slotDate)} | {item.slotTime}</p>
             </div>
             <div className='flex flex-col sm:flex-col gap-2 sm:items-end w-full sm:w-auto'>
-              {!item.cancelled && <button onClick={() => appointmentRazorpay(item._id)} className='text-sm text-stone-500 text-center w-full sm:w-36 py-2 border rounded hover:text-white hover:bg-[#5f6FFF] transition-all duration-500 cursor-pointer'>Pay Online</button>}
+              {!item.cancelled && item.payment && <button className= "text-sm text-stone-500 text-center bg-indigo-50 w-full sm:w-36 py-2 border rounded transition-all duration-500 cursor-pointer">Paid</button>}
+              {!item.cancelled && !item.payment && <button onClick={() => appointmentRazorpay(item._id)} className='text-sm text-stone-500 text-center w-full sm:w-36 py-2 border rounded hover:text-white hover:bg-[#5f6FFF] transition-all duration-500 cursor-pointer'>Pay Online</button>}
               {!item.cancelled && <button onClick={() => cancelAppointment(item._id)} className='text-sm text-stone-500 text-center w-full sm:w-36 py-2 border rounded hover:text-white hover:bg-red-500 transition-all duration-500 cursor-pointer'>Cancel Appointment</button>}
               {item.cancelled && <button className='sm:min-w-48 py-2 border border-red-500 rounded text-red-500'>Appointment Cancelled</button>}
             </div>
