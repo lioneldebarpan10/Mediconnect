@@ -210,16 +210,16 @@ const cancelAppointment = async (req, res) => {
       await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true })
 
       // if we cancel the appointment then we have to release the occupied doctor's slots
-      
-      const {docId , slotDate, slotTime } = appointmentData
+
+      const { docId, slotDate, slotTime } = appointmentData
       const doctorData = await doctorModel.findById(docId)
 
       let slots_booked = doctorData.slots_booked
 
       slots_booked[slotDate] = slots_booked[slotDate].filter(e => e != slotTime)
-      await doctorModel.findByIdAndUpdate(docId , {slots_booked})
+      await doctorModel.findByIdAndUpdate(docId, { slots_booked })
 
-      res.json({success: true, message: "Appointment Cancelled"})
+      res.json({ success: true, message: "Appointment Cancelled" })
 
    }
    catch (error) {
@@ -251,14 +251,14 @@ const razorpayInstance = new razorpay({
 })
 
 // API to make payment of appointment using razorpay
-const paymentRazorpay = async(req , res) => {
-   try{
+const paymentRazorpay = async (req, res) => {
+   try {
 
       const { appointmentId } = req.body
       const appointmentData = await appointmentModel.findById(appointmentId)
 
-      if(!appointmentData || appointmentData.cancelled){
-         return res.json({success: false , message: "Appointment cancelled or not found"})
+      if (!appointmentData || appointmentData.cancelled) {
+         return res.json({ success: false, message: "Appointment cancelled or not found" })
       }
 
       // creating Options for Razorpay payment
@@ -270,34 +270,38 @@ const paymentRazorpay = async(req , res) => {
 
       // creation of an order
       const order = await razorpayInstance.orders.create(options)
-      res.json({success: true , order})
+      // This Line fixed the payment status issue
+      await appointmentModel.findByIdAndUpdate(appointmentId, {
+         razorpay_order_id: order.id
+      })
+      res.json({ success: true, order })
 
    }
-   catch(error){
+   catch (error) {
       console.log(error)
-      res.json({message: error.message})
+      res.json({ message: error.message })
    }
 }
 
 // API to verify payment in Razorpay
 
-const verifyRazorpay = async(req , res) => {
-   try{
+const verifyRazorpay = async (req, res) => {
+   try {
       const { razorpay_order_id } = req.body
       const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
       // test log for payment details - console.log(orderInfo)
 
-      if(orderInfo.status === 'paid'){
-         await appointmentModel.findByIdAndUpdate(orderInfo.receipt, {payment: true})
-         res.json({success: true , message: "Payment Successful"})
+      if (orderInfo.status === 'paid') {
+         await appointmentModel.findByIdAndUpdate(orderInfo.receipt, { payment: true })
+         res.json({ success: true, message: "Payment Successful" })
       }
-      else{
-         res.json({success: false , message: "Payment failed"})
+      else {
+         res.json({ success: false, message: "Payment failed" })
       }
    }
-   catch(error){
+   catch (error) {
       console.log(error)
-      res.json({success: false , message: error.message})
+      res.json({ success: false, message: error.message })
    }
 }
 
