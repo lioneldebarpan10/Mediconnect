@@ -74,9 +74,9 @@ const AddDoctor = () => {
   }
 
   return (
-    <form className='m-5 w-full' onSubmit={onSubmitHandler}>
+    <form className='m-5 max-w-4xl' onSubmit={onSubmitHandler}>
       <p className='mb-3 text-lg font-medium'>Add Doctor</p>
-      <div className='bg-white px-8 py-8 border border-gray-400 w-full max-w-4xl max-h-[80vh] overflow-y-scroll'>
+      <div className='bg-white px-4 py-6 sm:px-8 sm:py-8 border border-gray-200 rounded w-full max-h-[80vh] overflow-y-scroll'>
         {/* Upload Image Section */}
         <div className='flex items-center gap-4 mb-8 text-gray-500'>
           <label htmlFor="doc-img">
@@ -87,7 +87,7 @@ const AddDoctor = () => {
         </div>
 
         {/* Form Fields */}
-        <div className='flex flex-col lg:flex-row gap-10 text-gray-600'>
+        <div className='flex flex-col lg:flex-row gap-4 lg:gap-10 text-gray-600'>
           {/* Left Column - Form Fields */}
           <div className='w-full lg:flex-1 flex flex-col gap-4'>
             {/* Doctor Name */}

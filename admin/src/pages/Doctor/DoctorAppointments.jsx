@@ -3,11 +3,11 @@ import { useContext } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
 import { useEffect } from 'react'
 import { AppContext } from '../../context/AppContext'
-
+import { assets } from '../../assets/assets'
 
 const DoctorAppointments = () => {
 
-  const { dToken, appointments, getAppointments } = useContext(DoctorContext)
+  const { dToken, appointments, getAppointments, completeAppointment, cancelAppointment } = useContext(DoctorContext)
   const { slotDateFormat, calculateAge, currency } = useContext(AppContext)
 
   useEffect(() => {
@@ -17,11 +17,11 @@ const DoctorAppointments = () => {
   }, [dToken])
 
   return (
-    <div className='w-full max-w-6xl m-5 '>
+    <div className='max-w-6xl m-5'>
       <p className='mb-3 text-lg font-medium'>All appointments</p>
 
       <div className='bg-white border rounded text-sm max-h-[80vh] overflow-y-scroll'>
-        <div className='max-sm:hidden grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 py-3 px-6 border-b'>
+        <div className='hidden sm:grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 py-3 px-6 border-b'>
           <p>#</p>
           <p>Patient</p>
           <p>Payment</p>
@@ -32,24 +32,63 @@ const DoctorAppointments = () => {
         </div>
 
         {
-          appointments.map((item, index) => (
-            <div className='flex flex-wrap justify-between max-sm:gap-5 max-sm:text-base sm:grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 items-center text-gray-500 py-3 px-6 border-b hover:bg-gray-50' key={index}>
-              <p className='max-sm:hidden'>{index + 1}</p>
-
-              <div className='flex items-center gap-2'>
-                <img src={item.userData.image} className='w-8 rounded-full' alt="" /> <p>{item.userData.name}</p>
+          appointments.reverse().map((item, index) => (
+            <div key={index}>
+              {/* Desktop View Row */}
+              <div className='hidden sm:grid sm:grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 items-center text-gray-500 py-3 px-6 border-b hover:bg-gray-50'>
+                <p>{index + 1}</p>
+                <div className='flex items-center gap-2'>
+                  <img src={item.userData.image} className='w-8 rounded-full' alt="" /> <p>{item.userData.name}</p>
+                </div>
+                <div>
+                  <p className='text-xs inline border border-[#5f6FFF] px-2 py-0.5 rounded-full text-[#5f6FFF] font-medium bg-blue-50'>
+                    {item.payment ? 'Online' : 'CASH'}
+                  </p>
+                </div>
+                <p>{calculateAge(item.userData.dob)}</p>
+                <p>{slotDateFormat(item.slotDate)}, {item.slotTime}</p>
+                <p>{currency}{item.amount}</p>
+                {item.cancelled
+                  ? <p className='text-red-400 text-xs font-medium'>Cancelled</p>
+                  : item.isCompleted
+                    ? <p className='text-green-500 text-xs font-medium'>Completed</p>
+                    : <div className='flex gap-1'>
+                      <img onClick={() => cancelAppointment(item._id)} className='w-10 cursor-pointer hover:scale-105 transition-all' src={assets.cancel_icon} alt="cancel-icon" />
+                      <img onClick={() => completeAppointment(item._id)} className='w-10 cursor-pointer hover:scale-105 transition-all' src={assets.tick_icon} alt="tick-icon" />
+                    </div>
+                }
               </div>
-              <div>
-                <p className='text-xs inline border border-primary px-2 rounded-full'>
-                  {item.payment ? 'Online' : 'CASH'}
-                </p>
+
+              {/* Mobile View Card */}
+              <div className='sm:hidden flex flex-col gap-3 p-4 border-b hover:bg-gray-50 text-gray-600'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-2'>
+                    <img src={item.userData.image} className='w-8 rounded-full' alt="" />
+                    <p className='font-semibold text-gray-800'>{item.userData.name}</p>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <p className='text-[10px] inline border border-[#5f6FFF] px-2 py-0.5 rounded-full text-[#5f6FFF] font-medium bg-blue-50'>
+                      {item.payment ? 'Online' : 'CASH'}
+                    </p>
+                    {item.cancelled
+                      ? <p className='text-red-400 text-xs font-medium'>Cancelled</p>
+                      : item.isCompleted
+                        ? <p className='text-green-500 text-xs font-medium'>Completed</p>
+                        : <div className='flex items-center gap-1'>
+                          <img onClick={() => cancelAppointment(item._id)} className='w-8 cursor-pointer hover:scale-105 transition-all' src={assets.cancel_icon} alt="cancel-icon" />
+                          <img onClick={() => completeAppointment(item._id)} className='w-8 cursor-pointer hover:scale-105 transition-all' src={assets.tick_icon} alt="tick-icon" />
+                        </div>
+                    }
+                  </div>
+                </div>
+                <div className='text-xs flex flex-col gap-1.5 text-gray-500'>
+                  <p><span className='font-medium text-gray-700'>Date & Time:</span> {slotDateFormat(item.slotDate)}, {item.slotTime}</p>
+                  <div className='flex items-center justify-between mt-1'>
+                    <p><span className='font-medium text-gray-700'>Fee:</span> {currency}{item.amount}</p>
+                    <p><span className='font-medium text-gray-700'>Age:</span> {calculateAge(item.userData.dob)}</p>
+                  </div>
+                </div>
               </div>
-
-              <p className='max-sm:hidden'>{calculateAge(item.userData.dob)}</p>
-              <p>{slotDateFormat(item.slotDate)}, {item.slotTime}</p>
-              <p>{currency}{item.amount}</p>
-
-              
             </div>
           ))
         }

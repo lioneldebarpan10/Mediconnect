@@ -19,11 +19,11 @@ const Navbar = () => {
 
    return (
       <div className='flex justify-between items-center px-4 sm:px-10 py-3 border-b bg-white'>
-         <div className='flex items-center gap-3 text-xs'>
-            <img src={assets.admin_logo} alt="admin-logo" className='w-36 sm:w-40 cursor-pointer' />
-            <p className='border px-3 py-1 rounded-full border-gray-500 text-gray-600'>{aToken ? 'Admin' : 'Doctor'}</p>
+         <div className='flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs'>
+            <img src={assets.admin_logo} alt="admin-logo" className='w-32 sm:w-40 cursor-pointer' />
+            <p className='border px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border-gray-500 text-gray-600'>{aToken ? 'Admin' : 'Doctor'}</p>
          </div>
-         <button className='bg-[#5f6FFF] text-white text-sm px-10 py-2 rounded-full hover:bg-blue-700 transition cursor-pointer' onClick={logout}>Log out</button>
+         <button className='bg-[#5f6FFF] text-white text-xs sm:text-sm px-4 sm:px-10 py-2 rounded-full hover:bg-blue-700 transition cursor-pointer' onClick={logout}>Log out</button>
 
       </div>
    )
