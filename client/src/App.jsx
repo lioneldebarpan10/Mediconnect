@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
@@ -14,6 +15,11 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import { ToastContainer } from 'react-toastify'
 
 function App() {
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
   return (
     <div className='page-shell'>
       <ToastContainer />

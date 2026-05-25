@@ -28,7 +28,7 @@ const Navbar = () => {
   }
 
   return (
-    <header className='sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm'>
+    <header className='sticky top-0 z-50 border-b border-gray-200 bg-white'>
       <div className='page-container flex items-center justify-between gap-4 py-4'>
         <div className='flex items-center gap-3'>
           <img src={assets.logo} alt='main-logo' className='w-36 cursor-pointer' onClick={() => navigate('/')} />

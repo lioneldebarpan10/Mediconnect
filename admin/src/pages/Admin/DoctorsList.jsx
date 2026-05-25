@@ -17,7 +17,7 @@ const DoctorsList = () => {
         {
           doctors.map((item, index) => (
             <div key={index} className='bg-white border border-gray-100 shadow-sm hover:shadow-lg rounded-2xl max-w-56 overflow-hidden cursor-pointer group hover:-translate-y-2 transition-all duration-300'>
-              <img src={item.image} alt="doctor-img" className='bg-teal-50 group-hover:bg-primary transition-colors duration-500 w-full h-56 object-cover'/>
+              <img src={item.image} alt='doctor-img' className='block w-full h-56 object-cover bg-teal-50 group-hover:bg-primary transition-colors duration-500'/>
               <div className='p-5'>
                 <p className='text-gray-900 font-semibold text-lg'>{item.name}</p>
                 <p className='text-gray-500 text-sm mt-1'>{item.speciality}</p>

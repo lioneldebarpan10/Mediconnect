@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Login from './pages/Login'
 import { ToastContainer } from 'react-toastify'
 import { AdminContext } from './context/AdminContext'
@@ -8,7 +8,7 @@ import AllApointments from './pages/Admin/AllApointments'
 import AddDoctor from './pages/Admin/AddDoctor'
 import Dashboard from './pages/Admin/Dashboard'
 import DoctorsList from './pages/Admin/DoctorsList'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { DoctorContext } from './context/DoctorContext'
 import DoctorDashboard from './pages/Doctor/DoctorDashboard'
 import DoctorAppointments from './pages/Doctor/DoctorAppointments'
@@ -17,13 +17,27 @@ import DoctorProfile from './pages/Doctor/DoctorProfile'
 const App = () => {
   const { aToken } = useContext(AdminContext)
   const { dToken } = useContext(DoctorContext)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    setSidebarOpen(false)
+  }, [location.pathname])
+
+  useEffect(() => {
+    document.body.style.overflow = sidebarOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [sidebarOpen])
 
   return aToken || dToken ? (
     <div className='page-shell'>
       <ToastContainer />
-      <Navbar />
+      <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className='flex flex-col lg:flex-row'>
-        <Sidebar />
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <main className='flex-1 w-full page-container py-6'>
           <Routes>
             <Route path='/' element={<></>} />

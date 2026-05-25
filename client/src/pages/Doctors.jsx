@@ -69,7 +69,7 @@ const Doctors = () => {
               {filterDoc.map((item) => (
                 <div key={item._id} className='section-card overflow-hidden cursor-pointer hover:shadow-xl transition' onClick={() => navigate(`/appointment/${item._id}`)}>
                   <div className='bg-teal-50 p-4 flex items-center justify-center'>
-                    <img src={item.image} alt={item.name} className='h-48 object-cover rounded-3xl' />
+                    <img src={item.image} alt={item.name} className='block w-full h-48 object-cover rounded-3xl' />
                   </div>
                   <div className='p-5 space-y-3'>
                     <div className='flex items-center gap-2 text-sm text-green-600'>

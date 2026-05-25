@@ -25,9 +25,9 @@ const RelatedDoctors = ({ speciality, docId }) => {
 
       <div className="w-full grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 pt-5 gap-y-6 px-3 sm:px-0" >
         {relDoc.slice(0 , 5).map((item , index) => (
-            <div key={index} className='border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transitiona-all duration-500' onClick={() => {navigate(`/appointment/${item._id}`) ; scrollTo(0, 0)}}>
-              <img src= {item.image} alt="doctor-image" className='bg-blue-50'/>
-              <div className='p-4 '>
+            <div key={index} className='border border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-y-[-10px] transition-all duration-500' onClick={() => {navigate(`/appointment/${item._id}`) ; scrollTo(0, 0)}}>
+              <img src={item.image} alt='doctor-image' className='block w-full h-48 object-cover bg-blue-50' />
+              <div className='p-4'>
                 <div className='flex items-center gap-2 text-sm text-center text-green-500'>
                   <p className='w-2 h-2 rounded-full bg-green-500'></p><p>Available</p>
                 </div>

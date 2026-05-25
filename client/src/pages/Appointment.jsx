@@ -97,7 +97,7 @@ const Appointment = () => {
       <div className='max-w-6xl mx-auto space-y-8'>
         <div className='grid gap-6 lg:grid-cols-[320px_1fr]'>
           <div className='section-card overflow-hidden'>
-            <img src={docInfo.image} alt={docInfo.name} className='w-full h-80 object-cover' />
+            <img src={docInfo.image} alt={docInfo.name} className='block w-full h-80 object-cover' />
             <div className='p-6'>
               <p className='text-2xl font-semibold text-slate-900'>{docInfo.name}</p>
               <p className='mt-3 text-sm text-slate-600'>{docInfo.degree} • {docInfo.speciality}</p>

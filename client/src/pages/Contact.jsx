@@ -6,8 +6,8 @@ const Contact = () => {
       <div className='max-w-6xl mx-auto space-y-12'>
         <div className='text-center'>
           <p className='text-sm uppercase tracking-[0.3em] text-primary'>Contact Us</p>
-          <h1 className='section-heading mt-4'>We’re always ready to support your health journey.</h1>
-          <p className='section-copy mx-auto mt-4'>Have a question about appointments, billing, or doctor availability? Send us a message and we’ll respond quickly.</p>
+          <h1 className='section-heading mt-4'>We're always ready to support your health journey.</h1>
+          <p className='section-copy mx-auto mt-4'>Have a question about appointments, billing, or doctor availability? Send us a message and we'll respond quickly.</p>
         </div>
 
         <div className='grid gap-8 lg:grid-cols-[1.2fr_0.8fr]'>
