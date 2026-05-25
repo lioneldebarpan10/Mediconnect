@@ -15,7 +15,10 @@ connectCloudinary();
 
 // middlewares
 app.use(express.json());
-app.use(cors()); // allow frontend to connect with backend
+app.use(cors({
+   origin: "*",
+   credentials: true
+}))
 
 // api endpoint
 
