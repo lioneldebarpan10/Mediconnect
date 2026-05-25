@@ -7,6 +7,7 @@ import doctorModel from '../models/doctorModel.js'
 import appointmentModel from '../models/appointmentModel.js'
 import razorpay from 'razorpay'
 import crypto from "crypto";
+import { sendAppointmentEmail, sendWelcomeEmail } from '../utils/emailService.js';
 
 // API to register user
 const registerUser = async (req, res) => {
@@ -46,6 +47,10 @@ const registerUser = async (req, res) => {
       }
       const newUser = new userModel(userData)
       const user = await newUser.save()
+      
+      // Send welcome email
+      await sendWelcomeEmail(email, name);
+
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
 
       res.json({ success: true, token })
@@ -292,7 +297,13 @@ const verifyRazorpay = async (req, res) => {
       // test log for payment details - console.log(orderInfo)
 
       if (orderInfo.status === 'paid') {
-         await appointmentModel.findByIdAndUpdate(orderInfo.receipt, { payment: true })
+         const appointment = await appointmentModel.findByIdAndUpdate(orderInfo.receipt, { payment: true }, { returnDocument: 'after' })
+         
+         // Send confirmation email if appointment and user email are available
+         if (appointment && appointment.userData && appointment.userData.email) {
+             await sendAppointmentEmail(appointment.userData.email, appointment);
+         }
+         
          res.json({ success: true, message: "Payment Successful" })
       }
       else {
