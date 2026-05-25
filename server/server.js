@@ -16,7 +16,10 @@ connectCloudinary();
 // middlewares
 app.use(express.json());
 app.use(cors({
-   origin: "*",
+   origin: [
+      "https://mediconnect-neon-pi.vercel.app/",
+      "https://mediconnect-n98m.vercel.app/"
+   ],
    credentials: true
 }))
 
