@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { Route, Routes } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
@@ -12,29 +9,30 @@ import Contact from './pages/Contact'
 import MyProfile from './pages/MyProfile'
 import MyAppointments from './pages/MyAppointments'
 import Appointment from './pages/Appointment'
-import Footer from  './components/Footer'
-import { ToastContainer, toast } from 'react-toastify';
+import Footer from './components/Footer'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
-
   return (
-    <div className='mx-4 sm:mx-[10%]'>
-      <ToastContainer/>
+    <div className='page-shell'>
+      <ToastContainer />
       <Navbar />
-
-      <Routes>
-        <Route path='/' element = {<Home/>}/>
-        <Route path='/doctors' element = {<Doctors/>}/>
-        <Route path='/doctors/:speciality' element = {<Doctors/>}/>
-        <Route path='/login' element = {<Login/>}/>
-        <Route path='/about' element = {<About/>}/>
-        <Route path = '/contact' element = {<Contact/>} />
-        <Route path = '/my-profile' element = {<MyProfile/>} />
-        <Route path = '/my-appointments' element = {<MyAppointments/>} />
-        <Route path = '/appointment/:docId' element = {<Appointment/>} />
-      </Routes>
+      <main className='page-container py-8'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/doctors' element={<Doctors />} />
+          <Route path='/doctors/:speciality' element={<Doctors />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='/my-profile' element={<MyProfile />} />
+          <Route path='/my-appointments' element={<MyAppointments />} />
+          <Route path='/appointment/:docId' element={<Appointment />} />
+        </Routes>
+      </main>
       <Footer />
-
     </div>
   )
 }

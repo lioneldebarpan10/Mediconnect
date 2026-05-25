@@ -1,45 +1,45 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <div className='md:mx-10'>
-      <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
-        {/**Left Section */}
-        <div>
-          <img src={assets.logo} alt="footer-logo" className='mb-5 w-40' />
-          <p className='w-full md:w-2/3 text-gray-600 leading-6'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat excepturi itaque quo iste, aspernatur velit voluptatibus, ratione iure quia tempora mollitia error minima obcaecati quasi</p>
-
+    <footer className='page-container pt-16 pb-10'>
+      <div className='section-card p-10 grid gap-10 md:grid-cols-[1.7fr_1fr_1fr]'>
+        <div className='space-y-5'>
+          <img src={assets.logo} alt='footer-logo' className='w-36' />
+          <p className='text-slate-600 leading-7'>MediConnect makes it easy to find trusted doctors, book appointments, and stay on top of your health with a modern online experience.</p>
+          <div className='flex gap-3 text-sm text-slate-500'>
+            <span>+234 800 123 4567</span>
+            <span>•</span>
+            <span>support@mediconnect.com</span>
+          </div>
         </div>
 
-        {/**Center Section */}
-        <div>
-          <p className='text-xl font-medium mb-5'>Company</p>
-          <ul className='flex flex-col gap-2 text-gray-600'>
-            <li>Home</li>
-            <li>About us</li>
-            <li>Contact us</li>
-            <li>Privacy Policy</li>
-          </ul>
-
+        <div className='space-y-5'>
+          <p className='text-xl font-semibold text-slate-900'>Company</p>
+          <div className='grid gap-3 text-slate-600'>
+            <Link to='/' className='transition hover:text-primary'>Home</Link>
+            <Link to='/about' className='transition hover:text-primary'>About</Link>
+            <Link to='/contact' className='transition hover:text-primary'>Contact</Link>
+            <Link to='/privacy-policy' className='transition hover:text-primary'>Privacy Policy</Link>
+          </div>
         </div>
 
-        {/**Rigtht Section */}
-        <div>
-          <p className='text-xl font-medium mb-5'>Get in Touch</p>
-          <ul className='flex flex-col gap-2 text-gray-600'>
-            <li>+0-123-456-789</li>
-            <li>dbrpn07cse@gmail.com</li>
-          </ul>
+        <div className='space-y-5'>
+          <p className='text-xl font-semibold text-slate-900'>Support</p>
+          <div className='grid gap-3 text-slate-600'>
+            <p>Customer Care</p>
+            <p>FAQs</p>
+            <p>Terms</p>
+          </div>
         </div>
       </div>
 
-      <div>
-        <hr />
-        <p className='text-sm text-center py-5 font-bold text-gray-600'>Copyright ©2026 Debarpan Deb - All Right Reserved.</p>
+      <div className='mt-8 border-t border-gray-200 pt-6 text-center text-sm text-slate-500'>
+        © 2026 MediConnect. All rights reserved.
       </div>
-
-    </div>
+    </footer>
   )
 }
 

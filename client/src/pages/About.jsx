@@ -3,41 +3,41 @@ import { assets } from '../assets/assets'
 
 const About = () => {
   return (
-    <div>
+    <div className='page-container py-12'>
+      <div className='max-w-6xl mx-auto space-y-12'>
+        <div className='text-center'>
+          <p className='text-sm uppercase tracking-[0.3em] text-primary'>About Us</p>
+          <h1 className='section-heading mt-4'>Trusted healthcare booking for every family.</h1>
+          <p className='section-copy mx-auto mt-4'>MediConnect connects you with verified doctors and makes appointment management simple, fast, and secure.</p>
+        </div>
 
-      <div className='text-center text-2xl pt-10 text-[#707070]'>
-        <p>ABOUT <span className='text-gray-700 font-semibold'>US</span></p>
-      </div>
+        <div className='grid gap-10 lg:grid-cols-[1fr_1fr] items-center'>
+          <div className='section-card overflow-hidden shadow-xl'>
+            <img src={assets.about_image} alt='About us' className='w-full object-cover' />
+          </div>
+          <div className='space-y-6'>
+            <p className='text-xl font-semibold text-slate-900'>Welcome to <span className='text-primary'>MediConnect</span></p>
+            <p className='text-slate-600 leading-relaxed'>We help you book the right specialist, manage appointments, and keep your medical journey on track with responsive support and a beautiful digital experience.</p>
+            <div className='section-card rounded-[32px] border-teal-100 bg-teal-50 p-8'>
+              <p className='text-lg font-semibold text-slate-900 mb-3'>Our Vision</p>
+              <p className='text-slate-700 leading-relaxed'>To simplify trusted healthcare access for every community through intuitive online booking and verified medical professionals.</p>
+            </div>
+          </div>
+        </div>
 
-      <div className='my-10 flex flex-col md:flex-row gap-12'>
-        <img className='w-full md:max-w-[360px]' src={assets.about_image} alt="about-image" />
-        <div className='flex flex-col justify-center gap-6 md:w-2/4 text-sm text-gray-600'>
-          <p>Welcome to Prescripto, your trusted partner in managing your healthcare needs conveniently and efficiently. At AfricaDocnet, we understand the challenges individuals face when it comes to scheduling doctor appointments and managing their health records.</p>
-          <p>Prescripto is committed to excellence in healthcare technology. We continuously strive to enhance our platform, integrating the latest advancements to improve user experience and deliver superior service. Whether you're booking your first appointment or managing ongoing care, AfricaDocnet is here to support you every step of the way.</p>
-          <b className='text-gray-800'>Our Vision</b>
-          <p>Our vision at Prescripto is to create a seamless healthcare experience for every user. We aim to bridge the gap between patients and healthcare providers, making it easier for you to access the care you need, when you need it.</p>
+        <div className='grid gap-6 md:grid-cols-3'>
+          {[
+            { title: 'Fast booking', description: 'Book the next available specialist in just a few steps.' },
+            { title: 'Verified doctors', description: 'We only list trusted practitioners with quality reviews.' },
+            { title: 'Easy care', description: 'Manage appointments, reminders, and records from one place.' }
+          ].map((item) => (
+            <div key={item.title} className='section-card p-8 hover:shadow-xl transition'>
+              <p className='text-base font-semibold text-slate-900'>{item.title}</p>
+              <p className='mt-4 text-slate-600'>{item.description}</p>
+            </div>
+          ))}
         </div>
       </div>
-
-      <div className='text-xl my-4'>
-        <p>WHY  <span className='text-gray-700 font-semibold'>CHOOSE US</span></p>
-      </div>
-
-      <div className='flex flex-col md:flex-row mb-20'>
-        <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5f6FFF] hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
-          <b>EFFICIENCY:</b>
-          <p>Streamlined appointment scheduling that fits into your busy lifestyle.</p>
-        </div>
-        <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5f6FFF] hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
-          <b>CONVENIENCE: </b>
-          <p>Access to a network of trusted healthcare professionals in your area.</p>
-        </div>
-        <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5f6FFF] hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
-          <b>PERSONALIZATION:</b>
-          <p >Tailored recommendations and reminders to help you stay on top of your health.</p>
-        </div>
-      </div>
-
     </div>
   )
 }

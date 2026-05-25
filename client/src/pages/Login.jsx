@@ -1,90 +1,116 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AppContext } from '../context/AppContext';
+import { AppContext } from '../context/AppContext'
 import axios from 'axios'
-import { toast } from 'react-toastify';
-import { useEffect } from 'react';
-
-
+import { toast } from 'react-toastify'
 
 const Login = () => {
-
-  const [state, setState] = useState('Sign Up');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [state, setState] = useState('Sign Up')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const { backendUrl, token, setToken } = useContext(AppContext)
 
   const onSubmitHandler = async (event) => {
-    event.preventDefault();
-
+    event.preventDefault()
     try {
       if (state === 'Sign Up') {
-        const { data } = await axios.post(backendUrl + '/api/user/register', { name, email, password })
+        const { data } = await axios.post(`${backendUrl}/api/user/register`, { name, email, password })
         if (data.success) {
-          localStorage.setItem("token", data.token)
+          localStorage.setItem('token', data.token)
           setToken(data.token)
-          toast.success("Account created successfully")
+          toast.success('Account created successfully')
+        } else {
+          toast.error(data.message)
         }
-        else {
+      } else {
+        const { data } = await axios.post(`${backendUrl}/api/user/login`, { email, password })
+        if (data.success) {
+          localStorage.setItem('token', data.token)
+          setToken(data.token)
+          toast.success('Login successful')
+        } else {
           toast.error(data.message)
         }
       }
-      else {
-        const { data } = await axios.post(backendUrl + '/api/user/login', { email, password })
-        if(data.success){
-          localStorage.setItem("token" , data.token)
-          setToken(data.token)
-          toast.success("Login successful")
-        }
-        else{
-          toast.error(data.message)
-        }
-      }
-    }
-    catch (error) {
+    } catch (error) {
       toast.error(error.message)
     }
   }
 
   useEffect(() => {
-    if(token){
+    if (token) {
       navigate('/')
     }
-
-  } , [token])
+  }, [token])
 
   return (
-    <form className='min-h-[80vh] flex items-center' onSubmit={onSubmitHandler}>
-      <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border border-gray-400 rounded-xl text-[#5E5E5E] text-sm shadow-lg'>
-        <p className='text-2xl font-bold'>{state === 'Sign Up' ? "Create Account" : "Login"}</p>
-        <p>please {state === 'Sign Up' ? "sign up" : "sign in"} to book an appointment</p>
-
-        {state === 'Sign Up'
-          ? <div className='w-full '>
-            <p>Full Name</p>
-            <input onChange={(e) => setName(e.target.value)} value={name} className='border border-[#DADADA] rounded w-full p-2 mt-1' type="text" required />
+    <div className='page-container min-h-[calc(100vh-140px)] py-12'>
+      <div className='grid gap-8 lg:grid-cols-[1.05fr_0.95fr] items-center'>
+        <div className='space-y-8'>
+          <div className='max-w-xl'>
+            <p className='text-sm uppercase tracking-[0.3em] text-primary'>Welcome to MediConnect</p>
+            <h1 className='section-heading mt-4'>{state === 'Sign Up' ? 'Create your account' : 'Welcome back'}</h1>
+            <p className='section-copy mt-4'>Securely book doctor appointments, manage your profile, and stay informed with one easy platform.</p>
           </div>
-          : null
-        }
-        <div className='w-full '>
-          <p>Email</p>
-          <input onChange={(e) => setEmail(e.target.value)} value={email} className='border border-[#DADADA] rounded w-full p-2 mt-1' type="email" required />
+
+          <div className='grid gap-4 sm:grid-cols-2'>
+            <div className='rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm'>
+              <p className='font-semibold text-slate-900'>Faster bookings</p>
+              <p className='mt-2 text-sm text-slate-600'>Save time and book the best doctors in a few clicks.</p>
+            </div>
+            <div className='rounded-[32px] border border-slate-200 bg-white p-6 shadow-sm'>
+              <p className='font-semibold text-slate-900'>Verified doctors</p>
+              <p className='mt-2 text-sm text-slate-600'>All doctors are screened for quality and credibility.</p>
+            </div>
+          </div>
         </div>
 
-        <div className='w-full '>
-          <p>Password</p>
-          <input onChange={(e) => setPassword(e.target.value)} value={password} className='border border-[#DADADA] rounded w-full p-2 mt-1' type="password" required />
-        </div>
+        <form onSubmit={onSubmitHandler} className='form-card p-8 shadow-xl'>
+          <div className='flex flex-col gap-6'>
+            <div>
+              <p className='text-3xl font-semibold text-slate-900'>{state === 'Sign Up' ? 'Create Account' : 'Login'}</p>
+              <p className='text-sm text-slate-600 mt-2'>Please {state === 'Sign Up' ? 'create an account' : 'sign in'} to book appointments instantly.</p>
+            </div>
 
-        <button className='bg-[#5f6FFF] text-white w-full py-2 my-2 rounded-md text-base' type = 'submit'>{state === 'Sign Up' ? 'Create account' : 'Login'}</button>
-        {state === 'Sign Up'
-          ? <p>Already have an account? <span onClick={() => setState('Login')} className='text-[#5f6FFF] underline cursor-pointer'>Login here</span></p>
-          : <p>Create an new account? <span onClick={() => setState('Sign Up')} className='text-[#5f6FFF] underline cursor-pointer'>Click here</span></p>
-        }
+            <div className='flex gap-2 rounded-full bg-slate-100 p-1'>
+              {['Sign Up', 'Login'].map((item) => (
+                <button key={item} type='button' onClick={() => setState(item)} className={`flex-1 rounded-full py-3 text-sm font-semibold transition ${state === item ? 'bg-white text-primary shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}>
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            {state === 'Sign Up' && (
+              <div className='flex flex-col gap-2'>
+                <label className='form-label'>Full Name</label>
+                <input value={name} onChange={(e) => setName(e.target.value)} type='text' className='form-input' required />
+              </div>
+            )}
+
+            <div className='flex flex-col gap-2'>
+              <label className='form-label'>Email</label>
+              <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' className='form-input' required />
+            </div>
+
+            <div className='flex flex-col gap-2'>
+              <label className='form-label'>Password</label>
+              <input value={password} onChange={(e) => setPassword(e.target.value)} type='password' className='form-input' required />
+            </div>
+
+            <button type='submit' className='btn-primary w-full py-3'>{state === 'Sign Up' ? 'Create Account' : 'Login'}</button>
+
+            <p className='text-sm text-slate-600 text-center'>
+              {state === 'Sign Up' ? 'Already have an account?' : 'Need a new account?'}{' '}
+              <button type='button' onClick={() => setState(state === 'Sign Up' ? 'Login' : 'Sign Up')} className='text-primary font-semibold underline'>
+                {state === 'Sign Up' ? 'Login here' : 'Create one'}
+              </button>
+            </p>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   )
 }
 

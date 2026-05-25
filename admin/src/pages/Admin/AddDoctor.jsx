@@ -172,7 +172,7 @@ const AddDoctor = () => {
 
         {/* Submit Button */}
         <div className='flex justify-center mt-8'>
-          <button className='bg-[#5f6FFF] text-white text-sm px-10 py-2 rounded-full hover:bg-blue-700 transition'>Add Doctor</button>
+          <button className='bg-primary text-white text-sm px-10 py-2 rounded-full hover:bg-blue-700 transition'>Add Doctor</button>
         </div>
       </div>
     </form>

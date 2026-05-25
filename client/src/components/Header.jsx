@@ -1,32 +1,39 @@
 import React from 'react'
-
-import {assets} from '../assets/assets';
+import { assets } from '../assets/assets'
 
 const Header = () => {
-   return(
-      <div className='flex flex-col md:flex-row flex-wrap bg-[#5f6FFF] rounded-lg px-6 md:px-10 lg:px-20'>
-         {/*--------Header left------*/}
-         <div className='md:w-1/2 flex flex-col items-start justify-center gap-4 py-10 m-auto md:py-[10vw] md:mb-[-30px]'>
-            <p className='text-3xl md:text-4xl lg:text-5xl text-white font-semibold leading-tight md:leading-tight lg:leading-tight'>
-               Book Appointment <br /> with Trusted Doctors
-            </p>
-            <div className='flex flex-col md:flex-row items-center gap-3 text-white text-sm font-light'>
-               <img src= {assets.group_profiles} alt="" className='w-28'/>
-               <p>Simply browse through our extensive list of trsuted doctors, <br className='hidden sm:block'/> schedule your appointment</p>
-            </div>
+  return (
+    <div className='grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center rounded-[36px] bg-gradient-to-r from-primary to-teal-600 px-6 py-12 text-white shadow-xl md:px-12 lg:px-20'>
+      <div className='space-y-8'>
+        <div className='max-w-2xl'>
+          <p className='text-sm uppercase tracking-[0.35em] text-teal-200'>Trusted care, faster booking</p>
+          <h1 className='text-4xl font-semibold leading-tight sm:text-5xl'>Book appointments with top doctors in seconds.</h1>
+          <p className='mt-6 text-base leading-8 text-teal-100'>Find verified specialists, compare ratings, and reserve the best available slot for your needs — all from one modern healthcare platform.</p>
+        </div>
 
-            <a href="#speciality" className='flex items-center gap-2 bg-white px-8 py-3 rounded-full text-[#595959] text-sm m-auto md:m-0 hover:scale-105 transition-all duration-300'>
-               Book Appointment <img src={assets.arrow_icon} alt = 'arrow-icon' className='w-3'/>
-            </a>
+        <div className='grid gap-4 sm:grid-cols-2'>
+          <div className='rounded-[32px] bg-white/10 p-6'>
+            <p className='text-sm uppercase tracking-[0.3em] text-teal-200'>Quick search</p>
+            <p className='mt-3 text-lg font-semibold'>Browse specialists by category.</p>
+          </div>
+          <div className='rounded-[32px] bg-white/10 p-6'>
+            <p className='text-sm uppercase tracking-[0.3em] text-teal-200'>Verified care</p>
+            <p className='mt-3 text-lg font-semibold'>Trusted doctors with strong patient reviews.</p>
+          </div>
+        </div>
 
-         </div>
-
-         {/*-------Header right------ */}
-         <div className='md:w-1/2 relative'>
-            <img src= {assets.header_img} alt="header-image" className='w-full md:absolute bottom-0 h-auto rounded-lg'/>
-         </div>
+        <a href='#speciality' className='inline-flex items-center gap-3 rounded-full bg-white px-8 py-3 text-sm font-semibold text-primary shadow-lg shadow-teal-500/20 transition hover:scale-[1.02]'>
+          Book Appointment
+          <img src={assets.arrow_icon} alt='arrow-icon' className='w-4' />
+        </a>
       </div>
-   )
+
+      <div className='relative overflow-hidden rounded-[36px] bg-white/10 p-4 shadow-2xl ring-1 ring-white/20'>
+        <div className='absolute -right-16 -top-16 h-32 w-32 rounded-full bg-white/10 blur-3xl' />
+        <img src={assets.header_img} alt='Header illustration' className='relative w-full rounded-[28px] object-cover' />
+      </div>
+    </div>
+  )
 }
 
 export default Header

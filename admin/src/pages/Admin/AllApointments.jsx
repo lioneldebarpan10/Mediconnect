@@ -20,8 +20,8 @@ const AllAppointments = () => {
 
       <p className='mb-3 text-lg font-medium'>All Appointments</p>
 
-      <div className='bg-white border rounded text-sm max-h-[80vh] overflow-y-scroll min-h-[60vh]'>
-        <div className='hidden sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] grid-flow-col py-3 px-6 border-b'>
+      <div className='bg-white border border-gray-100 shadow-sm rounded-2xl text-sm max-h-[80vh] overflow-y-scroll min-h-[60vh]'>
+        <div className='hidden sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] grid-flow-col py-4 px-6 bg-gray-50 border-b border-gray-200 text-gray-600 font-semibold uppercase text-xs tracking-wider'>
           <p>#</p>
           <p>Patient</p>
           <p>Age</p>
@@ -33,18 +33,18 @@ const AllAppointments = () => {
         {appointments.map((item, index) => (
           <div key={index}>
             {/* Desktop View Row */}
-            <div className='hidden sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-500 py-3 px-6 border-b hover:bg-gray-50'>
-              <p>{index + 1}</p>
-              <div className='flex items-center gap-2'>
-                <img src={item.userData.image} className='w-8 rounded-full' alt="" /> <p>{item.userData.name}</p>
+            <div className='hidden sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-600 py-4 px-6 border-b border-gray-100 hover:bg-teal-50 transition-all duration-200'>
+              <p className='font-medium text-gray-500'>{index + 1}</p>
+              <div className='flex items-center gap-3'>
+                <img src={item.userData.image} className='w-9 h-9 rounded-full object-cover ring-2 ring-gray-100' alt="" /> <p className='font-medium'>{item.userData.name}</p>
               </div>
               <p>{calculateAge(item.userData.dob)}</p>
               <p>{slotDateFormat(item.slotDate)}, {item.slotTime}</p>
-              <div className='flex items-center gap-2'>
-                <img src={item.docData.image} className='w-8 rounded-full bg-gray-200' alt="" /> <p>{item.docData.name}</p>
+              <div className='flex items-center gap-3'>
+                <img src={item.docData.image} className='w-9 h-9 rounded-full object-cover bg-teal-100 ring-2 ring-teal-50' alt="" /> <p className='font-medium'>{item.docData.name}</p>
               </div>
-              <p>{currency}{item.amount}</p>
-              {item.cancelled ? <p className='text-red-400 text-xs font-medium'>Cancelled</p> : item.isCompleted ? <p className='text-green-500 text-xs font-medium'>Completed</p> : <img onClick={() => cancelAppointment(item._id)} className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" />}
+              <p className='font-semibold text-primary'>{currency}{item.amount}</p>
+              {item.cancelled ? <p className='bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-semibold inline-block text-center'>Cancelled</p> : item.isCompleted ? <p className='bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs font-semibold inline-block text-center'>Completed</p> : <img onClick={() => cancelAppointment(item._id)} className='w-8 cursor-pointer hover:scale-110 transition-transform' src={assets.cancel_icon} alt="cancel" />}
             </div>
 
             {/* Mobile View Card */}
