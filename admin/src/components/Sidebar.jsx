@@ -15,13 +15,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         onClick={() => setSidebarOpen(false)}
       />
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-[280px] transform bg-white border-r shadow-xl transition-transform duration-300 md:static md:translate-x-0 md:h-auto lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed inset-y-0 left-0 z-50 w-[280px] transform bg-white border-r shadow-xl transition-transform duration-300 md:static md:translate-x-0 md:w-[240px] lg:w-[280px] lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className='flex items-center justify-between border-b border-gray-100 px-4 py-4 md:hidden'>
           <img src={assets.admin_logo} alt='logo' className='h-10 w-auto' />
           <button
             type='button'
-            className='inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-700 transition hover:bg-slate-100'
+            className='inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-700 cursor-pointer transition hover:bg-slate-100'
             onClick={() => setSidebarOpen(false)}
             aria-label='Close sidebar'
           >
