@@ -8,7 +8,7 @@ import AllApointments from './pages/Admin/AllApointments'
 import AddDoctor from './pages/Admin/AddDoctor'
 import Dashboard from './pages/Admin/Dashboard'
 import DoctorsList from './pages/Admin/DoctorsList'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
 import { DoctorContext } from './context/DoctorContext'
 import DoctorDashboard from './pages/Doctor/DoctorDashboard'
 import DoctorAppointments from './pages/Doctor/DoctorAppointments'
@@ -40,7 +40,7 @@ const App = () => {
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <main className='flex-1 w-full page-container py-6'>
           <Routes>
-            <Route path='/' element={<></>} />
+            <Route path='/' element={aToken ? <Navigate to='/admin-dashboard' /> : <Navigate to='/doctor-dashboard' />} />
             <Route path='/admin-dashboard' element={<Dashboard />} />
             <Route path='/all-appointments' element={<AllApointments />} />
             <Route path='/add-doctor' element={<AddDoctor />} />

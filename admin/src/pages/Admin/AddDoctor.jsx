@@ -74,7 +74,7 @@ const AddDoctor = () => {
   }
 
   return (
-    <form className='m-5 max-w-4xl' onSubmit={onSubmitHandler}>
+    <form className='w-full' onSubmit={onSubmitHandler}>
       <p className='mb-3 text-lg font-medium'>Add Doctor</p>
       <div className='bg-white px-4 py-6 sm:px-8 sm:py-8 border border-gray-200 rounded w-full max-h-[80vh] overflow-y-scroll'>
         {/* Upload Image Section */}

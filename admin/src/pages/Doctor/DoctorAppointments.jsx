@@ -17,7 +17,7 @@ const DoctorAppointments = () => {
   }, [dToken])
 
   return (
-    <div className='max-w-6xl m-5'>
+    <div className='w-full'>
       <p className='mb-3 text-lg font-medium'>All appointments</p>
 
       <div className='bg-white border border-gray-100 shadow-sm rounded-2xl text-sm max-h-[80vh] overflow-y-scroll'>
