@@ -25,7 +25,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
     <header className='sticky top-0 z-50 border-b border-gray-200 bg-white w-full'>
       <div className='flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 py-3 md:py-4'>
         <div className='flex items-center gap-3 md:gap-4 min-w-0 flex-1'>
-          <button type='button' className='inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 md:hidden' onClick={() => setSidebarOpen(!sidebarOpen)} aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}>
+          <button type='button' className='inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 cursor-pointer shadow-sm transition hover:bg-slate-50' onClick={() => setSidebarOpen(!sidebarOpen)} aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}>
             {sidebarOpen ? (
               <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-5 w-5'>
                 <path fillRule='evenodd' d='M6.28 5.22a.75.75 0 011.06 0L12 9.94l4.66-4.72a.75.75 0 111.06 1.06L13.06 11l4.72 4.66a.75.75 0 11-1.06 1.06L12 12.06l-4.66 4.72a.75.75 0 11-1.06-1.06L10.94 11 6.22 6.28a.75.75 0 010-1.06z' clipRule='evenodd' />

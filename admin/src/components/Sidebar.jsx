@@ -11,13 +11,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <>
       <div
-        className={`fixed inset-0 z-40 bg-black/30 transition-opacity duration-300 md:hidden ${sidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+        className={`fixed inset-0 z-40 bg-black/30 transition-opacity duration-300 ${sidebarOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
         onClick={() => setSidebarOpen(false)}
       />
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-[280px] transform bg-white border-r shadow-xl transition-transform duration-300 md:static md:translate-x-0 md:w-[240px] lg:w-[280px] lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed inset-y-0 left-0 z-50 w-[280px] transform bg-white border-r shadow-xl transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
-        <div className='flex items-center justify-between border-b border-gray-100 px-4 py-4 md:hidden'>
+        <div className='flex items-center justify-between border-b border-gray-100 px-4 py-4'>
           <img src={assets.admin_logo} alt='logo' className='h-10 w-auto' />
           <button
             type='button'
