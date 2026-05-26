@@ -46,7 +46,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
                   <path d='M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z' />
                 </svg>
-                <p className='hidden md:block font-medium'>Dashboard</p>
+                <p className='md:block font-medium'>Dashboard</p>
               </NavLink>
               <NavLink
                 to={'/all-appointments'}
@@ -56,7 +56,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
                   <path fillRule='evenodd' d='M3 4a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V4zm12 12H5V4h10v12z' clipRule='evenodd' />
                 </svg>
-                <p className='hidden md:block font-medium'>Appointments</p>
+                <p className='md:block font-medium'>Appointments</p>
               </NavLink>
               <NavLink
                 to={'/add-doctor'}
@@ -66,7 +66,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
                   <path fillRule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z' clipRule='evenodd' />
                 </svg>
-                <p className='hidden md:block font-medium'>Add Doctors</p>
+                <p className='md:block font-medium'>Add Doctors</p>
               </NavLink>
               <NavLink
                 to={'/doctor-list'}
@@ -76,7 +76,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
                   <path d='M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v-2h8v2zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-2a4 4 0 00-8 0v2a2 2 0 012 2h4a2 2 0 012-2z' />
                 </svg>
-                <p className='hidden md:block font-medium'>Doctors List</p>
+                <p className='md:block font-medium'>Doctors List</p>
               </NavLink>
             </ul>
           )}
@@ -91,7 +91,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
                   <path d='M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z' />
                 </svg>
-                <p className='hidden md:block font-medium'>Dashboard</p>
+                <p className='md:block font-medium'>Dashboard</p>
               </NavLink>
               <NavLink
                 to={'/doctor-appointments'}
@@ -101,7 +101,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
                   <path fillRule='evenodd' d='M3 4a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V4zm12 12H5V4h10v12z' clipRule='evenodd' />
                 </svg>
-                <p className='hidden md:block font-medium'>Appointments</p>
+                <p className='md:block font-medium'>Appointments</p>
               </NavLink>
               <NavLink
                 to={'/doctor-profile'}
@@ -111,7 +111,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <svg className='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
                   <path fillRule='evenodd' d='M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z' clipRule='evenodd' />
                 </svg>
-                <p className='hidden md:block font-medium'>Profile</p>
+                <p className='md:block font-medium'>Profile</p>
               </NavLink>
             </ul>
           )}
