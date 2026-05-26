@@ -14,15 +14,15 @@ const Contact = () => {
           <div className='space-y-6'>
             <div className='section-card p-8'>
               <p className='text-xl font-semibold text-slate-900 mb-4'>Visit our office</p>
-              <p className='text-slate-600 leading-relaxed'>Lekki Ikate, Lagos, Nigeria</p>
+              <p className='text-slate-600 leading-relaxed'>Kolkata, West Bengal</p>
               <div className='mt-6 grid gap-4 sm:grid-cols-2'>
                 <div className='rounded-3xl bg-slate-50 p-5'>
                   <p className='text-sm font-semibold text-slate-700'>Phone</p>
-                  <p className='mt-2 text-base text-slate-900'>+234 800 123 4567</p>
+                  <p className='mt-2 text-base text-slate-900'>+91 8617374285</p>
                 </div>
                 <div className='rounded-3xl bg-slate-50 p-5'>
                   <p className='text-sm font-semibold text-slate-700'>Email</p>
-                  <p className='mt-2 text-base text-slate-900'>support@mediconnect.com</p>
+                  <p className='mt-2 text-base text-slate-900'>dbrpn07cse@gmail.com</p>
                 </div>
               </div>
             </div>
